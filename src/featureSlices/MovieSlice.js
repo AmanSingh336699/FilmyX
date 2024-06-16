@@ -10,7 +10,8 @@ export const searchMovies = createAsyncThunk(
         try {
             const response = await axios.get(`${apiUrl}/search/movie`,{
                 params: {
-                    api_key: apikey,query
+                    api_key: apikey,
+                    query
                 },
             });
             return response.data.results

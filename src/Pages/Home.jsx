@@ -10,14 +10,14 @@ const Home = () => {
  
   return (
     <div className='constainer mx-auto p-4'>
-        <h1 className='text-3xl font-bold mb-4'>Movie Search</h1>
+        <h1 className='text-3xl font-bold mb-4 text-center'>Movie Search</h1>
         <SearchBar />
         <TrendingSlide />
-        {/* <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
             {movies.map(movie => (
               <MovieCard key={movie.id} movie={movie}/>
             ))}
-        </div> */}
+        </div>
         <RecentMovie />
     </div>
   )

@@ -53,11 +53,12 @@ function TrendingSlide() {
   return (
     <div>
         <h1 className='text-3xl font-bold mb-4 text-center'>Trending Movies</h1>
-        <Slider {...settings}>
-            {trendingMovie.map((movie)=>(
-                    <MovieCard key={movie.id} movie={movie} />
-            ))}
-        </Slider>
+            <Slider {...settings}>
+                {trendingMovie.map((movie)=>(
+                        <MovieCard key={movie.id} movie={movie} /> 
+                ))}
+            </Slider>
+        
     </div>
   )
 }

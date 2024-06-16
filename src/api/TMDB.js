@@ -60,3 +60,32 @@ export const fetchMovieDetail = async (id)=>{
         throw error;
     }
 };
+
+export const fetchMovieByQuery = async (query)=>{
+    try {
+        const response = await axios.get(`${Url}/search/movie`,{
+            params: {
+                api_key: Api_Key,
+                query,
+            }
+        })
+        return response.data
+    } catch (error) {
+        console.error(error)
+        throw error
+    }
+}
+
+export const fetchMovieVideos = async (movieId) =>{
+    try {
+        const reponse = await axios.get(`${Url}/movie/${movieId}/videos`,{
+            params: {
+                api_key: Api_Key,
+            }
+        })
+        return reponse.data
+    } catch (error) {
+        console.error(error)
+        throw error
+    }
+}
