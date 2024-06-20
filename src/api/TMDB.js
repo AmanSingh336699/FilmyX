@@ -3,9 +3,9 @@ import axios from "axios";
 const Api_Key = import.meta.env.VITE_API_KEY
 const Url = import.meta.env.VITE_API_URL
 
-export const fetchMovies = async ()=>{
+export const fetchTopRatedMovies = async ()=>{
     try {
-        const response = await axios.get(`${Url}/movie/now_playing`, {
+        const response = await axios.get(`${Url}/movie/top_rated`, {
             params: {
                 api_key: Api_Key,
                 language: 'en-US',
@@ -19,6 +19,21 @@ export const fetchMovies = async ()=>{
     }
 };
 
+export const fetchTopRatedTvShow = async ()=>{
+    try {
+        const response = await axios.get(`${Url}/tv/top_rated`,{
+            params: {
+                api_key: Api_Key,
+                language: 'en-Us',
+                page: 1
+            }
+        })
+        return response.data.results
+    } catch (error) {
+        console.error(error)
+        return []
+    }
+}
 export const fetchTrendingMovies = async ()=>{
     try {
         const response = await axios.get(`${Url}/trending/movie/week`, {

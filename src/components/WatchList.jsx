@@ -10,8 +10,9 @@ function WatchList() {
       return <div className='text-center text-3xl font-bold text-red-400'>No movies in the watchlist</div>
     }
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
+    <div className=''>
       <h2 className='text-2xl font-bold mb-2 text-center mt-4'>Watchlist</h2>
+      <div className='grid grid-col-3 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
         {watchlist.map((movie)=>(
             <div key={movie.id} className='block border border-gray-499 p-4 rounded mb-4'>
                 <Link to={`/movie/${movie.id}`} className='block border border-gray-400 p-4 rounded mb-4 transform transition duration-300 hover:scale-101'>
@@ -22,6 +23,7 @@ function WatchList() {
                 <button onClick={()=>dispatch(removeFromWatchList(movie))} className='mt-2 font-bold bg-red-400 text-white hover:bg-red-700 py-2 px-4 rounded'>Remove</button>
             </div>
         ))}
+      </div>
     </div>
   )
 }
