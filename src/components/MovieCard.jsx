@@ -1,26 +1,33 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { addToWatchList } from '../featureSlices/WatchListSlice';
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css'
+import { FaPlus } from "react-icons/fa"
 
-function MovieCard({ movie }) {
+function MovieCard({ item,isTV }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
+  const handleClick = ()=> {
+    navigate(`details/${item.id}/${isTV}`)
+  }
   const handleAddToWatch = ()=>{
-    dispatch(addToWatchList(movie))
+    dispatch(addToWatchList(item))
      }
 
   return (
-          <div className='w-full h-full rounded overflow-hidden shadow-lg m-2 flex flex-col'>
-            <Link to={`/movie/${movie.id}`}>
-              <LazyLoadImage src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} effect='blur' className="w-full" />
+          <div className='max-w-sm rounded overflow-hidden shadow-lg aspect-h-1' onClick={handleClick}>
+            <Link to={`/${item.media_type || 'movie'}/${item.id}`}>
+              <LazyLoadImage src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} alt={item.title} effect='blur' className="w-full" />
             </Link> 
-            <div className='px-4 py-2 flex-grow flex flex-col justify-between'>
-              <h2 className='text-lg font-bold mt-2 truncate'>{movie.title}</h2>
-              <p className='text-sm font-semibold'>{movie.release_date}</p>
-              <button onClick={handleAddToWatch} className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded'>Add To Watchlist</button>
+            <div className='px-6 py-4 '>
+              <h2 className='text-lg font-bold mt-2 truncate'>{item.name ||item.title}</h2>
+              <p className='text-sm font-semibold'>{item.release_date || item.first_air_date}</p>
+              <div className='pt-4 flex justify-center'>
+                <button onClick={handleAddToWatch} className='bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 text-sm font-medium px-5 py-2.5 text-white text-center rounded flex items-center'><FaPlus className='3xl mr-2' /> WatchList</button> 
+              </div>
             </div>           
           </div>
       
@@ -28,3 +35,6 @@ function MovieCard({ movie }) {
 }
 
 export default MovieCard
+
+
+

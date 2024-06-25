@@ -34,6 +34,7 @@ export const fetchTopRatedTvShow = async ()=>{
         return []
     }
 }
+
 export const fetchTrendingMovies = async ()=>{
     try {
         const response = await axios.get(`${Url}/trending/movie/week`, {
@@ -48,6 +49,33 @@ export const fetchTrendingMovies = async ()=>{
     }
 };
 
+export const fetchTrendingTVShows = async () =>{
+    try {
+        const response = await axios.get(`${Url}/trending/tv/week`, {
+            params: {
+                api_key: Api_Key
+            }
+
+        })
+        return response.data.results;
+    } catch (error) {
+        console.error(error)
+        return [];
+    }
+}
+
+export const fetchTVCasts = async (id)=>{
+    try {
+        const response = await axios.get(`${Url}/tv/${id}/credits`,{
+            params: {
+                api_key: Api_Key,
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error(error)
+    }
+}
 export const fetchMovieCasts = async (id) =>{
     try {
         const response = await axios.get(`${Url}/movie/${id}/credits`,{
@@ -76,15 +104,29 @@ export const fetchMovieDetail = async (id)=>{
     }
 };
 
-export const fetchMovieByQuery = async (query)=>{
+export const fetchTVDetail = async (id)=>{
     try {
-        const response = await axios.get(`${Url}/search/movie`,{
+        const response = await axios.get(`${Url}/tv/${id}`,{
+            params: {
+                api_key: Api_Key,
+            },
+        })
+        return response.data
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+export const fetchMovieByQuery = async (query,type)=>{
+    try {
+        const response = await axios.get(`${Url}/search/${type}`,{
             params: {
                 api_key: Api_Key,
                 query,
             }
         })
-        return response.data
+        return response.data.results
     } catch (error) {
         console.error(error)
         throw error

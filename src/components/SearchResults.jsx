@@ -9,29 +9,31 @@ const useQuery = ()=> {
 
 function searchResults() {
     const query = useQuery().get('query')
-    const [movies, setMovies] = useState([])
+    const type = useQuery().get('type')
+    const [results, setResults] = useState([])
 
     useEffect(()=>{
-        const getMovies = async ()=>{
-            try {
-                const movieData = await fetchMovieByQuery(query);
-                setMovies(movieData.results)
-            } catch (error) {
-                console.error(error)
+        const getResults = async ()=>{
+           
+                if(query){
+                    try {
+                        const movieData = await fetchMovieByQuery(query,type);
+                        setResults(movieData.map(result => ({...result, media_type:type})))
+                    } catch (error) {
+                        console.error(error)
+                    }
+                }
             }
-        }
-        if(query){
-            getMovies()
-        }
-    },[query])
+            getResults()
+        },[query,type])
 
    
   return (
     <div className='container mx-auto p-4'>
         <h1 className='text-3xl font-bold mb-4'>Search Results for "{query}"</h1>
         <div className='grid grid-cols-2 md:grids-cols-3 lg:grid-cols-4 gap-4'>
-            {movies.map((movie)=>(
-                <MovieCard key={movie.id} movie={movie} />
+            {results.map((result)=>(
+                <MovieCard key={result.id} item={result} />
             ))}
         </div>
     </div>

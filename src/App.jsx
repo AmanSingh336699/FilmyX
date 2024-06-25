@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Header from './components/Header/Header'
 import Footer from './components/Footer'
 import WatchListPage from './Pages/WatchListPage'
-import MovieDetails from './Pages/MovieDetails'
+import Details from './Pages/Details'
 import Home from './Pages/Home'
 import SearchResults from './components/SearchResults'
 
@@ -15,7 +15,9 @@ function App() {
         <main className='flex-grow'>
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/movie/:id' element={<MovieDetails />} />
+            {/* <Route path='/movie/:id' element={<Details />} />
+            <Route path='/tv/:id' element={<Details />} /> */}
+            <Route path='/details/:id/:isTV' element={<Details />} />
             <Route path='/watchlist' element={<WatchListPage />} />
             <Route path='/search' element={<SearchResults />} />
           </Routes>

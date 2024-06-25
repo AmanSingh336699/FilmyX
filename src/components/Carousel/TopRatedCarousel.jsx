@@ -2,10 +2,8 @@ import Switch from '../switch/Switch';
 import { fetchTopRatedMovies,fetchTopRatedTvShow } from '../../api/TMDB';
 import React, { useState, useEffect } from 'react'
 import MovieCard from '../MovieCard';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-
+import Carousel from 'react-multi-carousel'
+import 'react-multi-carousel/lib/styles.css'
 
 export default function TopRatedCarousel() {
 
@@ -24,53 +22,39 @@ export default function TopRatedCarousel() {
   const toggleContent = (showTV) =>{
     setIsTV(showTV)
   }
-  
-  const settings = {
-    autoplay: true,
-    infinite: true,
-    speed: 500,
-    autoplaySpeed: 2500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    pauseOnHover: true,
-    resposive: [
-        {
-            breakpoint: 1024,
-            settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3,
-                infinite: true,
-            }
-        },
-        {
-            breakpoint: 600,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2,
-                initialSlide: 2
-            }
-        },
-        {
-            breakpoint: 480,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-            }
-        }
-    ]
-}
 
+  const resposive = {
+    superLargeDesktop: {
+      breakpoint: {max: 4000 , min: 3000},
+      items: 5
+    },
+    desktop: {
+      breakpoint: {max: 3000 , min: 1024},
+      items: 4
+    },
+    tablet: {
+      breakpoint: {max: 1024 , min: 464},
+      items: 3
+    },
+    mobile: {
+      breakpoint: {max: 464 , min: 0},
+      items: 2
+    }
+  }
+  
   return (
-    <div>
+    <>
       <div className='flex flex-wrap justify-between mt-4'>
         <h2 className='text-3xl font-bold mb-4 mt-2 text-center'>{isTV ? 'Top Rated Movies' : 'Top Rated Tv Series'}</h2>
         <Switch isTV={isTV} toggle={toggleContent} />
       </div>
-      <Slider {...settings}>
+      <Carousel responsive={resposive} infinite autoPlay autoPlaySpeed={3000} arrows={false}>
         {items.map((item)=>(
-          <MovieCard key={item.id} movie={item}/>
+          <div key={item.id}>
+            <MovieCard item={item} isTV={isTV}/>
+          </div>
         ))}
-      </Slider>
-    </div>
+      </Carousel>
+    </>
   )
 }
